@@ -14,16 +14,9 @@ print_success() {
     echo -e "${GREEN}[SUCCESS]${NC} $1"
 }
 
-# Build frontend
-print_status "Building frontend..."
-cd ../apps/web
-npm ci  # Use ci for faster, more reliable installs
-npm run build
-print_success "Frontend build complete"
-
 # Build and deploy CDK
 print_status "Building CDK..."
-cd ../../cdk
+cd ../cdk
 npm ci
 print_success "CDK dependencies installed"
 
@@ -31,6 +24,6 @@ print_status "Synthesizing CDK stack..."
 npm run cdk:synth
 
 print_status "Deploying CDK stack..."
-npm run cdk:deploy GripnirFrontendStack
+npm run cdk:deploy GripnirApiStack
 
 print_success "Deployment complete!"
