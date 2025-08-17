@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"lambda-dropin/internal/database"
-	"lambda-dropin/internal/user"
 	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -20,18 +18,11 @@ func handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 }
 
 func init() {
-	db := database.NewDynamoDB()
-	userService := user.NewUserService(db)
-	userHandler := user.NewUserHandler(userService)
-
 	r := chi.NewRouter()
 
 	r.Use(chimiddleware.Logger)
 	r.Use(chimiddleware.Recoverer)
 	r.Use(chimiddleware.RequestID)
-
-	r.Post("/register", userHandler.RegisterUserHandler)
-	r.Post("/login", userHandler.LoginUserHandler)
 
 	// Health check endpoint
 	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
@@ -40,11 +31,6 @@ func init() {
 	})
 
 	chiLambda = chiadapter.New(r)
-}
-
-func ProtectedHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello there, this is protected"))
 }
 
 func main() {
