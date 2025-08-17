@@ -1,16 +1,41 @@
 import { Construct } from "constructs";
-import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { CfnOutput, RemovalPolicy, StackProps } from "aws-cdk-lib";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3StaticWebsiteOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
+import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import { ARecord, HostedZone, RecordTarget } from "aws-cdk-lib/aws-route53";
+import { CloudFrontTarget } from "aws-cdk-lib/aws-route53-targets";
 
 const path = "../apps/web/dist";
 
+interface StaticWebsiteHostingProps extends StackProps {
+  domainName: string;
+  certificateArn: string; // Required: certificate ARN from us-east-1
+}
+
 export class StaticWebsiteHosting extends Construct {
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, props: StaticWebsiteHostingProps) {
     super(scope, id);
 
+    // Domain name
+    const { domainName, certificateArn } = props;
+    const rootDomain = domainName.split(".").slice(-2).join(".");
+    const subdomainPart = domainName.replace(`.${rootDomain}`, "");
+
+    const hostedZone = HostedZone.fromLookup(this, "HostedZone", {
+      domainName: rootDomain,
+    });
+
+    // Import SSL certificate from ARN
+    const certificate = Certificate.fromCertificateArn(
+      this,
+      "Certificate",
+      certificateArn,
+    );
+
+    // Hosting bucket
     const bucket = new Bucket(this, "FrontendBucket", {
       autoDeleteObjects: true,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -25,6 +50,7 @@ export class StaticWebsiteHosting extends Construct {
       }),
     });
 
+    // CloudFront Distribution
     const distribution = new Distribution(this, "CloudfrontDistribution", {
       defaultBehavior: {
         origin: new S3StaticWebsiteOrigin(bucket),
@@ -38,6 +64,15 @@ export class StaticWebsiteHosting extends Construct {
           responsePagePath: "/index.html",
         },
       ],
+      domainNames: [domainName],
+      certificate: certificate,
+    });
+
+    // Outputs
+    new ARecord(this, "ARecord", {
+      zone: hostedZone,
+      recordName: subdomainPart,
+      target: RecordTarget.fromAlias(new CloudFrontTarget(distribution)),
     });
 
     new BucketDeployment(this, "BucketDeployment", {
@@ -49,8 +84,14 @@ export class StaticWebsiteHosting extends Construct {
 
     new CfnOutput(this, "CloudFrontURL", {
       value: distribution.domainName,
-      description: "Distribution URL",
+      description: "CloudFront Distribution URL",
       exportName: "CloudFrontURL",
+    });
+
+    new CfnOutput(this, "CustomDomainURL", {
+      value: `https://${domainName}`,
+      description: "Custom Domain URL",
+      exportName: "CustomDomainURL",
     });
 
     new CfnOutput(this, "BucketName", {
