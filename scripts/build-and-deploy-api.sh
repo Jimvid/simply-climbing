@@ -24,6 +24,6 @@ print_status "Synthesizing CDK stack..."
 npm run cdk:synth
 
 print_status "Deploying CDK stack..."
-npm run cdk:deploy GripnirApiStack
+npm run cdk:deploy SimplyClimbingAPI
 
 print_success "Deployment complete!"

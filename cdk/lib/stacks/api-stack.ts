@@ -39,9 +39,9 @@ export class ApiStack extends cdk.Stack {
     });
 
     // API Gateway
-    const api = new apigateway.RestApi(this, "GripnirApi", {
-      restApiName: "Gripnir API",
-      description: "API for Gripnir application",
+    const api = new apigateway.RestApi(this, "SimplyClimbingApi", {
+      restApiName: "Simply Climbing API",
+      description: "API for 'Simply Climbing' application",
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
         allowMethods: apigateway.Cors.ALL_METHODS,

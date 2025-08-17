@@ -5,5 +5,5 @@ import { ApiStack } from "../lib/stacks/api-stack";
 
 const app = new cdk.App();
 
-new FrontendStack(app, "GripnirFrontendStack", {});
-new ApiStack(app, "GripnirApiStack", {});
+new FrontendStack(app, "SimplyClimbingFrontend", {});
+new ApiStack(app, "SimplyClimbingApi", {});
