@@ -11,6 +11,14 @@ export class ApiStack extends cdk.Stack {
 
     const dlq = new sqs.Queue(this, "ApiLambdaDlq");
 
+    // DynamoDB
+    const table = new cdk.aws_dynamodb.Table(this, "SimplyClimbing", {
+      partitionKey: {
+        name: "id",
+        type: cdk.aws_dynamodb.AttributeType.STRING,
+      },
+    });
+
     // Lambda - API
     const apiLambda = new lambda.Function(this, "ApiLambda", {
       runtime: lambda.Runtime.PROVIDED_AL2023,
@@ -29,6 +37,9 @@ export class ApiStack extends cdk.Stack {
           ],
         },
       }),
+      environment: {
+        TABLE_NAME: table.tableName,
+      },
     });
 
     // CloudWatch
@@ -49,15 +60,27 @@ export class ApiStack extends cdk.Stack {
       },
     });
 
+    // Grant access to the DynamoDB table
+    table.grantReadData(apiLambda);
+    table.grantWriteData(apiLambda);
+
+    // Integration
     const lambdaIntegration = new apigateway.LambdaIntegration(apiLambda);
 
+    // Proxy everything and handle routes in the lambda
     api.root.addProxy({
       defaultIntegration: lambdaIntegration,
     });
 
+    // Outputs
     new cdk.CfnOutput(this, "ApiUrl", {
       value: api.url,
       description: "API Gateway URL",
+    });
+
+    new cdk.CfnOutput(this, "DynamoTableName", {
+      value: table.tableName,
+      description: "DynamoDB table name",
     });
   }
 }
