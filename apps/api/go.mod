@@ -1,4 +1,4 @@
-module gripnir-api
+module github.com/jimvid/simply-climbing
 
 go 1.23.4
 
