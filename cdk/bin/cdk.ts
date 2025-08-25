@@ -14,4 +14,9 @@ new FrontendStack(app, "SimplyClimbingFrontend", {
 });
 
 // Api stack includes the DynamoDB table
-new ApiStack(app, "SimplyClimbingApi", {});
+new ApiStack(app, "SimplyClimbingApi", {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
