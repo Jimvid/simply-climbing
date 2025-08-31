@@ -1,39 +1,20 @@
 import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
 
 export const Route = createFileRoute('/')({
-  component: App,
+  component: RouteComponent,
 })
 
-function App() {
+function RouteComponent() {
   return (
-    <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-        <img
-          src={logo}
-          className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
-          alt="logo"
-        />
-        <p>
-          Edit <code>src/routes/index.tsx</code> and save to reload.
-        </p>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <a
-          className="text-[#61dafb] hover:underline"
-          href="https://tanstack.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn TanStack
-        </a>
-      </header>
+    <div>
+      <button className="btn btn-neutral">Neutral</button>
+      <button className="btn btn-primary">Primary</button>
+      <button className="btn btn-secondary">Secondary</button>
+      <button className="btn btn-accent">Accent</button>
+      <button className="btn btn-info">Info</button>
+      <button className="btn btn-success">Success</button>
+      <button className="btn btn-warning">Warning</button>
+      <button className="btn btn-error">Error</button>
     </div>
   )
 }
