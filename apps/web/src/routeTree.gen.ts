@@ -10,20 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ClimbsIndexRouteImport } from './routes/climbs/index'
-import { Route as ClimbsAddClimbRouteImport } from './routes/climbs/add-climb'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ProtectedRouteImport } from './routes/_protected'
+import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
+import { Route as ProtectedProfileRouteImport } from './routes/_protected/profile'
+import { Route as ProtectedClimbsIndexRouteImport } from './routes/_protected/climbs/index'
+import { Route as ProtectedClimbsAddClimbRouteImport } from './routes/_protected/climbs/add-climb'
+import { Route as ProtectedClimbsIdRouteImport } from './routes/_protected/climbs/$id'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -31,75 +29,112 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedRoute = ProtectedRouteImport.update({
+  id: '/_protected',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProtectedIndexRoute = ProtectedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => ProtectedRoute,
 } as any)
-const ClimbsIndexRoute = ClimbsIndexRouteImport.update({
+const ProtectedProfileRoute = ProtectedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const ProtectedClimbsIndexRoute = ProtectedClimbsIndexRouteImport.update({
   id: '/climbs/',
   path: '/climbs/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => ProtectedRoute,
 } as any)
-const ClimbsAddClimbRoute = ClimbsAddClimbRouteImport.update({
+const ProtectedClimbsAddClimbRoute = ProtectedClimbsAddClimbRouteImport.update({
   id: '/climbs/add-climb',
   path: '/climbs/add-climb',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const ProtectedClimbsIdRoute = ProtectedClimbsIdRouteImport.update({
+  id: '/climbs/$id',
+  path: '/climbs/$id',
+  getParentRoute: () => ProtectedRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
-  '/climbs/add-climb': typeof ClimbsAddClimbRoute
-  '/climbs': typeof ClimbsIndexRoute
+  '/profile': typeof ProtectedProfileRoute
+  '/': typeof ProtectedIndexRoute
+  '/climbs/$id': typeof ProtectedClimbsIdRoute
+  '/climbs/add-climb': typeof ProtectedClimbsAddClimbRoute
+  '/climbs': typeof ProtectedClimbsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
-  '/climbs/add-climb': typeof ClimbsAddClimbRoute
-  '/climbs': typeof ClimbsIndexRoute
+  '/profile': typeof ProtectedProfileRoute
+  '/': typeof ProtectedIndexRoute
+  '/climbs/$id': typeof ProtectedClimbsIdRoute
+  '/climbs/add-climb': typeof ProtectedClimbsAddClimbRoute
+  '/climbs': typeof ProtectedClimbsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_protected': typeof ProtectedRouteWithChildren
+  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/profile': typeof ProfileRoute
   '/signup': typeof SignupRoute
-  '/climbs/add-climb': typeof ClimbsAddClimbRoute
-  '/climbs/': typeof ClimbsIndexRoute
+  '/_protected/profile': typeof ProtectedProfileRoute
+  '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/climbs/$id': typeof ProtectedClimbsIdRoute
+  '/_protected/climbs/add-climb': typeof ProtectedClimbsAddClimbRoute
+  '/_protected/climbs/': typeof ProtectedClimbsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
+    | '/about'
     | '/login'
-    | '/profile'
     | '/signup'
+    | '/profile'
+    | '/'
+    | '/climbs/$id'
     | '/climbs/add-climb'
     | '/climbs'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/profile' | '/signup' | '/climbs/add-climb' | '/climbs'
+  to:
+    | '/about'
+    | '/login'
+    | '/signup'
+    | '/profile'
+    | '/'
+    | '/climbs/$id'
+    | '/climbs/add-climb'
+    | '/climbs'
   id:
     | '__root__'
-    | '/'
+    | '/_protected'
+    | '/about'
     | '/login'
-    | '/profile'
     | '/signup'
-    | '/climbs/add-climb'
-    | '/climbs/'
+    | '/_protected/profile'
+    | '/_protected/'
+    | '/_protected/climbs/$id'
+    | '/_protected/climbs/add-climb'
+    | '/_protected/climbs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  ProtectedRoute: typeof ProtectedRouteWithChildren
+  AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
-  ProfileRoute: typeof ProfileRoute
   SignupRoute: typeof SignupRoute
-  ClimbsAddClimbRoute: typeof ClimbsAddClimbRoute
-  ClimbsIndexRoute: typeof ClimbsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -111,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -125,37 +153,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected': {
+      id: '/_protected'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof ProtectedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_protected/': {
+      id: '/_protected/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof ProtectedIndexRouteImport
+      parentRoute: typeof ProtectedRoute
     }
-    '/climbs/': {
-      id: '/climbs/'
+    '/_protected/profile': {
+      id: '/_protected/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProtectedProfileRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/climbs/': {
+      id: '/_protected/climbs/'
       path: '/climbs'
       fullPath: '/climbs'
-      preLoaderRoute: typeof ClimbsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof ProtectedClimbsIndexRouteImport
+      parentRoute: typeof ProtectedRoute
     }
-    '/climbs/add-climb': {
-      id: '/climbs/add-climb'
+    '/_protected/climbs/add-climb': {
+      id: '/_protected/climbs/add-climb'
       path: '/climbs/add-climb'
       fullPath: '/climbs/add-climb'
-      preLoaderRoute: typeof ClimbsAddClimbRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof ProtectedClimbsAddClimbRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/climbs/$id': {
+      id: '/_protected/climbs/$id'
+      path: '/climbs/$id'
+      fullPath: '/climbs/$id'
+      preLoaderRoute: typeof ProtectedClimbsIdRouteImport
+      parentRoute: typeof ProtectedRoute
     }
   }
 }
 
+interface ProtectedRouteChildren {
+  ProtectedProfileRoute: typeof ProtectedProfileRoute
+  ProtectedIndexRoute: typeof ProtectedIndexRoute
+  ProtectedClimbsIdRoute: typeof ProtectedClimbsIdRoute
+  ProtectedClimbsAddClimbRoute: typeof ProtectedClimbsAddClimbRoute
+  ProtectedClimbsIndexRoute: typeof ProtectedClimbsIndexRoute
+}
+
+const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedProfileRoute: ProtectedProfileRoute,
+  ProtectedIndexRoute: ProtectedIndexRoute,
+  ProtectedClimbsIdRoute: ProtectedClimbsIdRoute,
+  ProtectedClimbsAddClimbRoute: ProtectedClimbsAddClimbRoute,
+  ProtectedClimbsIndexRoute: ProtectedClimbsIndexRoute,
+}
+
+const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
+  ProtectedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  ProtectedRoute: ProtectedRouteWithChildren,
+  AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
-  ProfileRoute: ProfileRoute,
   SignupRoute: SignupRoute,
-  ClimbsAddClimbRoute: ClimbsAddClimbRoute,
-  ClimbsIndexRoute: ClimbsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

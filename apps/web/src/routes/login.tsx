@@ -1,8 +1,16 @@
 import { SignIn } from '@clerk/clerk-react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/login')({
   component: RouteComponent,
+
+  // beforeLoad: ({ context }) => {
+  //   // if (context.auth.isSignedIn) {
+  //   //   throw redirect({
+  //   //     to: '/',
+  //   //   })
+  //   // }
+  // },
 })
 
 function RouteComponent() {

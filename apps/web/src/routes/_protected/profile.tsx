@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/climbs/add-climb')({
+export const Route = createFileRoute('/_protected/profile')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/climbs/add-climb"!</div>
+  return <div>Hello "/profile"!</div>
 }
