@@ -7,6 +7,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
 import { Construct } from "constructs";
 import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import { getConfig } from "../config";
 
 interface ApiStackProps extends cdk.StackProps {
   domainName: string;
@@ -19,6 +20,7 @@ export class ApiWithDynamo extends Construct {
   constructor(scope: Construct, id: string, props: ApiStackProps) {
     super(scope, id);
 
+    const config = getConfig();
     const dlq = new sqs.Queue(this, "ApiLambdaDlq");
 
     // DynamoDB
@@ -70,6 +72,7 @@ export class ApiWithDynamo extends Construct {
       }),
       environment: {
         TABLE_NAME: table.tableName,
+        CLERK_SECRET: config.CLERK_SECRET,
       },
     });
     // CloudWatch
