@@ -47,10 +47,10 @@ export const AddClimbForm = () => {
                 {climbTypes.map((climbType) => (
                   <label
                     key={climbType.value}
-                    className={`relative flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md ${
+                    className={`relative bg-base-200 flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md ${
                       field.state.value === climbType.value
                         ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-base-300 bg-base-100 hover:border-base-content/20 text-base-content'
+                        : 'border-primary/20 bg-base-200 hover:border-base-content/20 text-base-content'
                     }`}
                   >
                     <input
@@ -90,7 +90,7 @@ export const AddClimbForm = () => {
                     className={`relative flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md ${
                       field.state.value === system.value
                         ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-base-300 bg-base-100 hover:border-base-content/20 text-base-content'
+                        : 'border-primary/20 bg-base-200 hover:border-base-content/20 text-base-content'
                     }`}
                   >
                     <input
@@ -136,10 +136,9 @@ export const AddClimbForm = () => {
                 onChange={(e) => {
                   const newGrade = e.target.value as Grade
                   field.handleChange(newGrade)
-                  // Sync perceived difficulty with grade by default
                   form.setFieldValue('perceivedDifficulty', newGrade)
                 }}
-                className="select select-bordered w-full focus:outline-none focus:border-primary"
+                className="select select-lg cursor-pointer select-bordered w-full border-2 border-primary/20 focus:outline-none focus:border-primary"
               >
                 {form.state.values.gradeSystem === 'american'
                   ? americanGrades.map((grade) => (
@@ -169,7 +168,7 @@ export const AddClimbForm = () => {
               <select
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value as Grade)}
-                className="select select-bordered w-full focus:outline-none focus:border-primary"
+                className="select select-lg cursor-pointer select-bordered w-full border-2 border-primary/20 focus:outline-none focus:border-primary"
               >
                 {form.state.values.gradeSystem === 'american'
                   ? americanGrades.map((grade) => (

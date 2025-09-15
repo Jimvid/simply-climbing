@@ -19,7 +19,7 @@ export const MenuBar = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 safe-area-inset-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-base-200 border-t border-base-400 safe-area-inset-bottom">
       <div className="flex justify-around items-center h-16 px-2">
         <Link
           to="/"
