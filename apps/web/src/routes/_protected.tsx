@@ -1,4 +1,5 @@
 import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
+import { MenuBar } from '../components/MenuBar'
 
 export const Route = createFileRoute('/_protected')({
   beforeLoad: ({ context }) => {
@@ -8,5 +9,10 @@ export const Route = createFileRoute('/_protected')({
       })
     }
   },
-  component: () => <Outlet />,
+  component: () => (
+    <div className="min-h-screen pb-20">
+      <Outlet />
+      <MenuBar />
+    </div>
+  ),
 })

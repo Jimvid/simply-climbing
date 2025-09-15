@@ -1,7 +1,6 @@
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanstackDevtools } from '@tanstack/react-devtools'
-import Header from '../components/Header'
 
 interface AuthState {
   isSignedIn: boolean
@@ -16,7 +15,6 @@ interface RouterContext {
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
     <>
-      <Header />
       <Outlet />
       <TanstackDevtools
         config={{
