@@ -14,7 +14,7 @@ interface RouterContext {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: () => (
-    <>
+    <div data-theme="forest">
       <Outlet />
       <TanstackDevtools
         config={{
@@ -27,6 +27,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
           },
         ]}
       />
-    </>
+    </div>
   ),
 })

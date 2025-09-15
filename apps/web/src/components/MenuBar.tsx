@@ -1,4 +1,4 @@
-import { House, Mountains, User, PlusCircle } from '@phosphor-icons/react'
+import { House, Mountains, PlusCircle, User } from '@phosphor-icons/react'
 import { Link, useLocation } from '@tanstack/react-router'
 
 export const MenuBar = () => {
@@ -9,7 +9,11 @@ export const MenuBar = () => {
       return location.pathname === '/'
     }
     if (path === '/climbs') {
-      return location.pathname === '/climbs' || (location.pathname.startsWith('/climbs') && !location.pathname.startsWith('/climbs/add-climb'))
+      return (
+        location.pathname === '/climbs' ||
+        (location.pathname.startsWith('/climbs') &&
+          !location.pathname.startsWith('/climbs/add-climb'))
+      )
     }
     return location.pathname.startsWith(path)
   }
