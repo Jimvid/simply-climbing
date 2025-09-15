@@ -19,14 +19,14 @@ export const MenuBar = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 safe-area-inset-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 safe-area-inset-bottom">
       <div className="flex justify-around items-center h-16 px-2">
         <Link
           to="/"
           className={`flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-1 rounded-lg transition-colors ${
             isActive('/')
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              ? 'text-primary'
+              : 'text-base-content/60 hover:text-base-content'
           }`}
         >
           <House size={22} weight={isActive('/') ? 'fill' : 'regular'} />
@@ -37,8 +37,8 @@ export const MenuBar = () => {
           to="/climbs"
           className={`flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-1 rounded-lg transition-colors ${
             isActive('/climbs')
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              ? 'text-primary'
+              : 'text-base-content/60 hover:text-base-content'
           }`}
         >
           <Mountains
@@ -52,8 +52,8 @@ export const MenuBar = () => {
           to="/profile"
           className={`flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-1 rounded-lg transition-colors ${
             isActive('/profile')
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              ? 'text-primary'
+              : 'text-base-content/60 hover:text-base-content'
           }`}
         >
           <User size={22} weight={isActive('/profile') ? 'fill' : 'regular'} />
@@ -64,8 +64,8 @@ export const MenuBar = () => {
           to="/climbs/add-climb"
           className={`flex flex-col items-center justify-center min-w-0 flex-1 py-2 px-1 rounded-lg transition-colors ${
             isActive('/climbs/add-climb')
-              ? 'text-blue-600 dark:text-blue-400'
-              : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+              ? 'text-primary'
+              : 'text-base-content/60 hover:text-base-content'
           }`}
         >
           <PlusCircle
