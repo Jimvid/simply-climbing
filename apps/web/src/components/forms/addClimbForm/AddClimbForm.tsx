@@ -1,13 +1,18 @@
 import { useForm } from '@tanstack/react-form'
 import { climbTypes } from './climbTypes'
 import { gradeSystems } from './gradeSystems'
-import { americanGrades, europeanGrades, europeanGradeGroups } from './grades'
-import type { ClimbFormData, ClimbType, GradeSystem, Grade } from './types'
+import { americanGrades, europeanGrades } from './grades'
+import type {
+  ClimbFormData,
+  ClimbType,
+  Grade,
+  GradeSystem,
+} from '@/types/climb'
 
 export const AddClimbForm = () => {
   const form = useForm({
     defaultValues: {
-      type: 'slopers ' as ClimbType,
+      type: 'slopers' as ClimbType,
       gradeSystem: 'european' as GradeSystem,
       grade: '6a' as Grade,
       perceivedDifficulty: '6a' as Grade,
