@@ -18,8 +18,8 @@ export const Profile = () => {
   }
 
   return (
-    <div className="min-h-[calc(100vh-88px)] flex flex-col pt-6">
-      <div className="flex-1 max-w-md mx-6 space-y-6">
+    <div className="min-h-[calc(100vh-88px)] flex flex-col p-6">
+      <div className="flex flex-col w-full flex-1 max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center">
           <h1 className="text-2xl font-bold text-base-content mb-2">Profile</h1>
@@ -27,13 +27,17 @@ export const Profile = () => {
         </div>
 
         {/* Profile Card */}
-        <div className="card bg-base-200 shadow-lg">
+        <div className="card w-full bg-base-200 shadow-lg">
           <div className="card-body">
             <div className="flex items-center gap-4">
               <div className="avatar">
-                <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <div className="w-full rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                   {user.imageUrl ? (
-                    <img src={user.imageUrl} alt="Profile" />
+                    <img
+                      className="max-w-24"
+                      src={user.imageUrl}
+                      alt="Profile"
+                    />
                   ) : (
                     <div className="bg-base-300 flex items-center justify-center">
                       <User size={40} className="text-base-content/60" />
@@ -85,7 +89,7 @@ export const Profile = () => {
       </div>
 
       {/* Actions - Fixed at bottom */}
-      <div className="max-w-md mx-auto w-full p-6">
+      <div className="max-w-2xl mx-auto w-full p-6">
         <div className="space-y-3">
           <button onClick={handleSignOut} className="btn btn-primary w-full">
             <SignOut size={20} />
