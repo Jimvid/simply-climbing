@@ -5,7 +5,7 @@ import {
   HandGrabbing,
   SquaresFour,
 } from '@phosphor-icons/react'
-import type { ClimbTypes } from './types'
+import type { ClimbTypes } from '../../../types/climb'
 
 export const climbTypes: ClimbTypes = [
   {

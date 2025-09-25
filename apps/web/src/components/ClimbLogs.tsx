@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Calendar, Mountains, CaretUp, CaretDown } from '@phosphor-icons/react'
+import { Calendar, CaretDown, CaretUp, Mountains } from '@phosphor-icons/react'
 import type { Climb, ClimbType } from '../types/climb'
 
 const dummyClimbs: Array<Climb> = [
@@ -178,7 +178,9 @@ export const ClimbLogs = () => {
                       <div className="flex items-center gap-2 mb-2">
                         {getTypeIcon(climb.type)}
                         <h3 className="card-title text-lg text-base-content">
-                          {climb.color ? `${climb.color} ${climb.grade}` : climb.grade}
+                          {climb.color
+                            ? `${climb.color} ${climb.grade}`
+                            : climb.grade}
                         </h3>
                       </div>
 
