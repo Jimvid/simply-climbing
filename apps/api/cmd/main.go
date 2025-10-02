@@ -19,11 +19,11 @@ func handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 }
 
 func init() {
-	router := router.NewRouter()
+	clerk.SetKey(cfg.CLERK_SECRET)
+	router := router.NewRouter(cfg)
 	chiLambda = chiadapter.New(router)
 }
 
 func main() {
-	clerk.SetKey(cfg.CLERK_SECRET)
 	lambda.Start(handler)
 }
