@@ -1,10 +1,21 @@
+import { useAuth } from '@clerk/clerk-react'
 import { createFileRoute } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 
 export const Route = createFileRoute('/_protected/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
+  const { getToken } = useAuth()
+  const [token, setToken] = useState<string | null>(null)
+
+  useEffect(() => {
+    getToken().then(setToken)
+  }, [getToken])
+
+  console.log(token)
+
   return (
     <div>
       <button className="btn btn-neutral">Neutral</button>

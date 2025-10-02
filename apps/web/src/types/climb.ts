@@ -59,10 +59,10 @@ export type EuropeanGrade =
 export type Grade = AmericanGrade | EuropeanGrade
 
 export interface ClimbFormData {
-  type: ClimbType
+  typeOfClimb: ClimbType
   gradeSystem: GradeSystem
   grade: Grade
-  perceivedDifficulty: Grade
+  precievedDifficulty: Grade
 }
 
 export interface Climb {
@@ -89,4 +89,3 @@ export type ClimbGrades = Array<{
   system: 'american' | 'european'
   difficulty: 'beginner' | 'intermediate' | 'advanced' | 'expert'
 }>
-

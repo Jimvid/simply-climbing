@@ -1,4 +1,5 @@
 import { useForm } from '@tanstack/react-form'
+import { useAuth } from '@clerk/clerk-react'
 import { climbTypes } from './climbTypes'
 import { gradeSystems } from './gradeSystems'
 import { americanGrades, europeanGrades } from './grades'
@@ -10,16 +11,27 @@ import type {
 } from '@/types/climb'
 
 export const AddClimbForm = () => {
+  const { getToken } = useAuth()
+
   const form = useForm({
     defaultValues: {
-      type: 'slopers' as ClimbType,
+      typeOfClimb: 'slopers' as ClimbType,
       gradeSystem: 'european' as GradeSystem,
       grade: '6a' as Grade,
-      perceivedDifficulty: '6a' as Grade,
+      precievedDifficulty: '6a' as Grade,
     },
     onSubmit: async ({ value }: { value: ClimbFormData }) => {
+      const token = await getToken()
       console.log('Form submitted:', value)
-      // TODO: Implement actual submission logic
+
+      fetch('https://api.simply-climbing.com/climbs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(value),
+      })
     },
   })
 
@@ -42,7 +54,7 @@ export const AddClimbForm = () => {
         }}
         className="space-y-6"
       >
-        <form.Field name="type">
+        <form.Field name="typeOfClimb">
           {(field) => (
             <div>
               <label className="block text-sm font-medium text-base-content mb-3">
@@ -109,7 +121,7 @@ export const AddClimbForm = () => {
                         // Update grade and perceived difficulty to appropriate default for the new system
                         const newGrade = newSystem === 'american' ? 'V2' : '6a'
                         form.setFieldValue('grade', newGrade)
-                        form.setFieldValue('perceivedDifficulty', newGrade)
+                        form.setFieldValue('precievedDifficulty', newGrade)
                       }}
                       className="sr-only"
                     />
@@ -141,7 +153,7 @@ export const AddClimbForm = () => {
                 onChange={(e) => {
                   const newGrade = e.target.value as Grade
                   field.handleChange(newGrade)
-                  form.setFieldValue('perceivedDifficulty', newGrade)
+                  form.setFieldValue('precievedDifficulty', newGrade)
                 }}
                 className="select select-lg cursor-pointer select-bordered w-full border-2 border-primary/20 focus:outline-none focus:border-primary"
               >
@@ -161,7 +173,7 @@ export const AddClimbForm = () => {
           )}
         </form.Field>
 
-        <form.Field name="perceivedDifficulty">
+        <form.Field name="precievedDifficulty">
           {(field) => (
             <div>
               <label className="block text-sm font-medium text-base-content mb-3">
