@@ -15,5 +15,13 @@ func (s *ClimbService) Create(climb ClimbModel) (ClimbModel, error) {
 	if err != nil {
 		return ClimbModel{}, err
 	}
-	return climb, err
+	return climb, nil
+}
+
+func (s *ClimbService) GetAll(userId string) ([]ClimbModel, error) {
+	climbs, err := s.storage.GetAll(userId)
+	if err != nil {
+		return climbs, err
+	}
+	return climbs, nil
 }

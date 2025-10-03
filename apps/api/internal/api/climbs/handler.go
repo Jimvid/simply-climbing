@@ -31,12 +31,29 @@ func (h *ClimbHandler) writeSuccessResponse(w http.ResponseWriter, statusCode in
 }
 
 func (h *ClimbHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	climbs := []ClimbModel{}
+	// Get claims from clerk
+	claims, ok := clerk.SessionClaimsFromContext(r.Context())
+	if !ok {
+		slog.Warn("No session claims in context")
+		h.writeErrorResponse(w, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
 
-	climbs = append(climbs, ClimbModel{
-		ID:    "some-uuid",
-		Grade: "7A",
-	})
+	// Get user from claims
+	usr, err := user.Get(r.Context(), claims.Subject)
+	if err != nil {
+		slog.Error("Failed to get user from Clerk", "error", err, "subject", claims.Subject)
+		h.writeErrorResponse(w, http.StatusInternalServerError, "Could not get user")
+		return
+	}
+
+	// Get all climbs for user
+	climbs, err := h.service.GetAll(usr.ID)
+	if err != nil {
+		slog.Error("Failed to get all climbs", "error", err)
+		h.writeErrorResponse(w, http.StatusInternalServerError, "Failed to get all climbs")
+		return
+	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

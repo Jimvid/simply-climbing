@@ -23,12 +23,18 @@ export class ApiWithDynamo extends Construct {
     const config = getConfig();
     const dlq = new sqs.Queue(this, "ApiLambdaDlq");
 
-    // DynamoDB
+    // DynamoDB - Single Table Design
     const table = new cdk.aws_dynamodb.Table(this, "SimplyClimbing", {
       partitionKey: {
-        name: "id",
+        name: "PK",
         type: cdk.aws_dynamodb.AttributeType.STRING,
       },
+      sortKey: {
+        name: "SK",
+        type: cdk.aws_dynamodb.AttributeType.STRING,
+      },
+      removalPolicy: cdk.RemovalPolicy.DESTROY, // WARNING: Deletes table on stack deletion
+      billingMode: cdk.aws_dynamodb.BillingMode.PAY_PER_REQUEST,
     });
 
     // Setup domain

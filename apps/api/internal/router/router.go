@@ -37,6 +37,7 @@ func NewRouter(cfg *config.Config) *chi.Mux {
 		w.Write([]byte("OK"))
 	})
 
+	r.With(middleware.AuthMiddleware).Get("/climbs", climbHandler.GetAll)
 	r.With(middleware.AuthMiddleware).Post("/climbs", climbHandler.Create)
 
 	return r

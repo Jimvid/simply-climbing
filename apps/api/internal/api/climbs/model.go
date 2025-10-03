@@ -1,12 +1,15 @@
 package climbs
 
 type ClimbModel struct {
-	ID                  string `json:"id" dynamodb:"id"`
-	UserId              string `json:"userId" dynamodb:"userId"`
-	Grade               string `json:"grade" dynamodb:"grade"`
-	PrecievedDifficulty string `json:"precievedDifficulty" dynamodb:"precievedDifficulty"`
-	TypeOfClimb         string `json:"typeOfClimb" dynamodb:"typeOfClimb"`
-	GradeSystem         string `json:"gradeSystem" dynamodb:"gradeSystem"`
-	CreatedAt           int64  `json:"createdAt" dynamodb:"createdAt"`
-	UpdatedAt           int64  `json:"updatedAt" dynamodb:"updatedAt"`
+	PK                  string `json:"-" dynamodbav:"PK"`
+	SK                  string `json:"-" dynamodbav:"SK"`
+	EntityType          string `json:"-" dynamodbav:"EntityType"`
+	ID                  string `json:"id" dynamodbav:"ID"`
+	UserId              string `json:"userId" dynamodbav:"UserId"`
+	Grade               string `json:"grade" dynamodbav:"Grade"`
+	PerceivedDifficulty string `json:"perceivedDifficulty" dynamodbav:"PerceivedDifficulty"`
+	TypeOfClimb         string `json:"typeOfClimb" dynamodbav:"TypeOfClimb"`
+	GradeSystem         string `json:"gradeSystem" dynamodbav:"GradeSystem"`
+	CreatedAt           int64  `json:"createdAt" dynamodbav:"CreatedAt"`
+	UpdatedAt           int64  `json:"updatedAt" dynamodbav:"UpdatedAt"`
 }
