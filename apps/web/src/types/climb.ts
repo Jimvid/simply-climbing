@@ -62,17 +62,17 @@ export interface ClimbFormData {
   typeOfClimb: ClimbType
   gradeSystem: GradeSystem
   grade: Grade
-  precievedDifficulty: Grade
+  perceivedDifficulty: Grade
 }
 
 export interface Climb {
   id: string
   color?: string
-  type: ClimbType
+  typeOfClimb: ClimbType
   gradeSystem: GradeSystem
   grade: Grade
   perceivedDifficulty: Grade
-  date: string
+  createdAt: string
   notes?: string
 }
 

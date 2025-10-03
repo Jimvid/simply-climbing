@@ -18,7 +18,7 @@ export const AddClimbForm = () => {
       typeOfClimb: 'slopers' as ClimbType,
       gradeSystem: 'european' as GradeSystem,
       grade: '6a' as Grade,
-      precievedDifficulty: '6a' as Grade,
+      perceivedDifficulty: '6a' as Grade,
     },
     onSubmit: async ({ value }: { value: ClimbFormData }) => {
       const token = await getToken()
@@ -121,7 +121,7 @@ export const AddClimbForm = () => {
                         // Update grade and perceived difficulty to appropriate default for the new system
                         const newGrade = newSystem === 'american' ? 'V2' : '6a'
                         form.setFieldValue('grade', newGrade)
-                        form.setFieldValue('precievedDifficulty', newGrade)
+                        form.setFieldValue('perceivedDifficulty', newGrade)
                       }}
                       className="sr-only"
                     />
