@@ -25,3 +25,27 @@ func (s *ClimbService) GetAll(userId string) ([]ClimbModel, error) {
 	}
 	return climbs, nil
 }
+
+func (s *ClimbService) FindById(userId, climbId string) (ClimbModel, error) {
+	climb, err := s.storage.FindById(userId, climbId)
+	if err != nil {
+		return ClimbModel{}, err
+	}
+	return climb, nil
+}
+
+func (s *ClimbService) Delete(userId, climbId string) error {
+	err := s.storage.Delete(userId, climbId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *ClimbService) Update(userId, climbId string, data ClimbUpdateReq) (ClimbModel, error) {
+	climb, err := s.storage.Update(userId, climbId, data)
+	if err != nil {
+		return climb, err
+	}
+	return climb, nil
+}

@@ -13,3 +13,10 @@ type ClimbModel struct {
 	CreatedAt           int64  `json:"createdAt" dynamodbav:"CreatedAt"`
 	UpdatedAt           int64  `json:"updatedAt" dynamodbav:"UpdatedAt"`
 }
+
+type ClimbUpdateReq struct {
+	Grade               string `json:"grade" dynamodbav:"Grade"`
+	PerceivedDifficulty string `json:"perceivedDifficulty" dynamodbav:"PerceivedDifficulty"`
+	TypeOfClimb         string `json:"typeOfClimb" dynamodbav:"TypeOfClimb"`
+	GradeSystem         string `json:"gradeSystem" dynamodbav:"GradeSystem"`
+}
