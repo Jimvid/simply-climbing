@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
-import { Calendar, CaretDown, CaretUp, Mountains } from '@phosphor-icons/react'
+import { Calendar, CaretDown, CaretUp, Mountains, Trash } from '@phosphor-icons/react'
 import type { Climb, ClimbType } from '../types/climb'
-import { useClimbs } from '@/hooks/api/useClimbs'
+import { useClimbs, useDeleteClimb } from '@/hooks/api/useClimbs'
 import { Icon } from './Icon'
 
 const getTypeLabel = (type: ClimbType) => {
@@ -33,6 +33,16 @@ const getDifficultyIndicator = (grade: string, perceived: string) => {
 
 export const ClimbLogs = () => {
   const query = useClimbs()
+  const deleteClimb = useDeleteClimb()
+
+  const handleDelete = (e: React.MouseEvent, climbId: string) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (window.confirm('Are you sure you want to delete this climb log?')) {
+      deleteClimb.mutate(climbId)
+    }
+  }
+
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">
       {/* Header */}
@@ -93,14 +103,21 @@ export const ClimbLogs = () => {
                       )}
                     </div>
 
-                    <div className="text-right">
+                    <div className="text-right flex flex-col items-end gap-2">
+                      <button
+                        onClick={(e) => handleDelete(e, climb.id)}
+                        className="btn btn-ghost btn-xs btn-circle text-error hover:bg-error/10"
+                        aria-label="Delete climb"
+                      >
+                        <Trash size={16} />
+                      </button>
                       <div className="flex items-center gap-1 text-xs text-base-content/60">
                         <Calendar size={14} />
                         <span>
                           {new Date(climb.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      <div className="text-xs text-base-content/50 mt-1">
+                      <div className="text-xs text-base-content/50">
                         Felt: {climb.perceivedDifficulty}
                       </div>
                     </div>
