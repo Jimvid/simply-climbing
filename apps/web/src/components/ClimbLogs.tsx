@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Calendar, CaretDown, CaretUp, Mountains, Trash } from '@phosphor-icons/react'
+import { Calendar, CaretDown, CaretUp, Trash } from '@phosphor-icons/react'
 import type { Climb, ClimbType } from '../types/climb'
 import { useClimbs, useDeleteClimb } from '@/hooks/api/useClimbs'
 import { Icon } from './Icon'
@@ -60,7 +60,6 @@ export const ClimbLogs = () => {
             climb.grade,
             climb.perceivedDifficulty,
           )
-
           return (
             <Link
               key={climb.id}

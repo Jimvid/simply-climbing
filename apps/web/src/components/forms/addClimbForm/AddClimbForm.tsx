@@ -9,6 +9,7 @@ import type {
   Grade,
   GradeSystem,
 } from '@/types/climb'
+import { notifyError, notifySuccess } from '@/lib/notify'
 
 export const AddClimbForm = () => {
   const { getToken } = useAuth()
@@ -22,9 +23,8 @@ export const AddClimbForm = () => {
     },
     onSubmit: async ({ value }: { value: ClimbFormData }) => {
       const token = await getToken()
-      console.log('Form submitted:', value)
 
-      fetch('https://api.simply-climbing.com/climbs', {
+      await fetch('https://api.simply-climbing.com/climbs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,6 +32,8 @@ export const AddClimbForm = () => {
         },
         body: JSON.stringify(value),
       })
+        .catch(() => notifyError('Could not log climb :('))
+        .finally(() => notifySuccess('Climb added!'))
     },
   })
 
@@ -153,7 +155,7 @@ export const AddClimbForm = () => {
                 onChange={(e) => {
                   const newGrade = e.target.value as Grade
                   field.handleChange(newGrade)
-                  form.setFieldValue('precievedDifficulty', newGrade)
+                  form.setFieldValue('perceivedDifficulty', newGrade)
                 }}
                 className="select select-lg cursor-pointer select-bordered w-full border-2 border-primary/20 focus:outline-none focus:border-primary"
               >
@@ -173,7 +175,7 @@ export const AddClimbForm = () => {
           )}
         </form.Field>
 
-        <form.Field name="precievedDifficulty">
+        <form.Field name="perceivedDifficulty">
           {(field) => (
             <div>
               <label className="block text-sm font-medium text-base-content mb-3">

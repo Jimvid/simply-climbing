@@ -1,6 +1,12 @@
 import { useAuth } from '@clerk/clerk-react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
+import {
+  notifyError,
+  notifyInfo,
+  notifySuccess,
+  notifyWarning,
+} from '@/lib/notify'
 
 export const Route = createFileRoute('/_protected/')({
   component: RouteComponent,
@@ -14,18 +20,26 @@ function RouteComponent() {
     getToken().then(setToken)
   }, [getToken])
 
-  console.log(token)
-
   return (
-    <div>
-      <button className="btn btn-neutral">Neutral</button>
-      <button className="btn btn-primary">Primary</button>
-      <button className="btn btn-secondary">Secondary</button>
-      <button className="btn btn-accent">Accent</button>
-      <button className="btn btn-info">Info</button>
-      <button className="btn btn-success">Success</button>
-      <button className="btn btn-warning">Warning</button>
-      <button className="btn btn-error">Error</button>
+    <div className="py-10 px-6">
+      <button
+        className="btn btn-success"
+        onClick={() => notifySuccess('Success')}
+      >
+        Success
+      </button>
+      <button
+        className="btn btn-warning"
+        onClick={() => notifyWarning('Warning')}
+      >
+        Warning
+      </button>
+      <button className="btn btn-info" onClick={() => notifyInfo('Info')}>
+        Info
+      </button>
+      <button className="btn btn-error" onClick={() => notifyError('Error')}>
+        Error
+      </button>
     </div>
   )
 }
