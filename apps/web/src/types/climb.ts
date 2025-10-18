@@ -29,13 +29,10 @@ export type AmericanGrade =
   | 'V17'
 
 export type EuropeanGrade =
-  | '3'
-  | '4a'
-  | '4b'
-  | '4c'
-  | '5a'
+  | '4'
+  | '5'
   | '5b'
-  | '5c'
+  | '5b+'
   | '6a'
   | '6a+'
   | '6b'

@@ -38,9 +38,7 @@ export const ClimbLogs = () => {
   const handleDelete = (e: React.MouseEvent, climbId: string) => {
     e.preventDefault()
     e.stopPropagation()
-    if (window.confirm('Are you sure you want to delete this climb log?')) {
-      deleteClimb.mutate(climbId)
-    }
+    deleteClimb.mutate(climbId)
   }
 
   return (

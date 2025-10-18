@@ -23,4 +23,3 @@ export const gradeSystems: Array<{
     example: 'V0, V5, V12',
   },
 ]
-

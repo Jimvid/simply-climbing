@@ -22,13 +22,9 @@ export const americanGrades: Array<AmericanGrade> = [
 ]
 
 export const europeanGrades: Array<EuropeanGrade> = [
-  '3',
-  '4a',
-  '4b',
-  '4c',
-  '5a',
+  '4',
   '5b',
-  '5c',
+  '5b+',
   '6a',
   '6a+',
   '6b',
@@ -49,4 +45,3 @@ export const europeanGrades: Array<EuropeanGrade> = [
   '8c+',
   '9a',
 ]
-
