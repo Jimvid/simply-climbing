@@ -72,7 +72,7 @@ export const ClimbLogItem = ({ climb }: ClimbLogItemProps) => {
               <div className="flex items-center gap-1 text-xs text-base-content/60">
                 <Calendar size={14} />
                 <span>
-                  {new Date(climb.createdAt).toLocaleDateString('en-US', {
+                  {new Date(Number(climb.createdAt) * 1000).toLocaleDateString('en-US', {
                     day: 'numeric',
                     month: 'long',
                   })}

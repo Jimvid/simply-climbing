@@ -1,9 +1,18 @@
 import type { Climb } from '../types/climb'
 import { useClimbs } from '@/hooks/api/useClimbs'
 import { ClimbLogItem } from './ClimbLogItem'
+import { useMemo } from 'react'
 
 export const ClimbLogs = () => {
   const query = useClimbs()
+
+  const sortedClimbs = useMemo(() => {
+    if (!query.data) return []
+    return [...query.data].sort(
+      (a: Climb, b: Climb) =>
+        new Date(Number(b.createdAt) * 1000).getTime() - new Date(Number(a.createdAt) * 1000).getTime(),
+    )
+  }, [query.data])
 
   return (
     <div className="max-w-2xl mx-auto p-6 space-y-6">
@@ -17,7 +26,7 @@ export const ClimbLogs = () => {
 
       {/* Climb Cards */}
       <div className="space-y-4">
-        {query.data?.map((climb: Climb) => (
+        {sortedClimbs.map((climb: Climb) => (
           <ClimbLogItem key={climb.id} climb={climb} />
         ))}
       </div>

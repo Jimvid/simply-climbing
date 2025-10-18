@@ -26,7 +26,6 @@ export const Profile = () => {
           <p className="text-base-content/70">Manage your account settings</p>
         </div>
 
-        {/* Profile Card */}
         <div className="card w-full bg-base-200 shadow-lg">
           <div className="card-body">
             <div className="flex items-center gap-4">
@@ -46,7 +45,6 @@ export const Profile = () => {
                 </div>
               </div>
 
-              {/* User Info */}
               <div className="flex-1 space-y-2">
                 <h2 className="card-title text-base-content">
                   {user.fullName || user.firstName || 'Anonymous User'}
@@ -74,28 +72,10 @@ export const Profile = () => {
             </div>
           </div>
         </div>
-
-        {/* Account Stats */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="stat bg-base-200 rounded-lg">
-            <div className="stat-title text-xs">Total Climbs</div>
-            <div className="stat-value text-2xl text-primary">0</div>
-          </div>
-          <div className="stat bg-base-200 rounded-lg">
-            <div className="stat-title text-xs">Best Grade</div>
-            <div className="stat-value text-2xl text-primary">-</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Actions - Fixed at bottom */}
-      <div className="max-w-2xl mx-auto w-full p-6">
-        <div className="space-y-3">
-          <button onClick={handleSignOut} className="btn btn-primary w-full">
-            <SignOut size={20} />
-            Sign Out
-          </button>
-        </div>
+        <button onClick={handleSignOut} className="btn btn-primary w-full">
+          <SignOut size={20} />
+          Sign Out
+        </button>
       </div>
     </div>
   )

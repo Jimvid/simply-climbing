@@ -1,4 +1,10 @@
-import { House, Mountains, PlusCircle, User } from '@phosphor-icons/react'
+import {
+  ChartBar,
+  House,
+  Mountains,
+  PlusCircle,
+  User,
+} from '@phosphor-icons/react'
 import { Link, useLocation } from '@tanstack/react-router'
 
 export const MenuBar = () => {
@@ -29,8 +35,8 @@ export const MenuBar = () => {
               : 'text-base-content/60 hover:text-base-content'
           }`}
         >
-          <House size={22} weight={isActive('/') ? 'fill' : 'regular'} />
-          <span className="text-xs mt-1 font-medium">Home</span>
+          <ChartBar size={22} weight={isActive('/') ? 'fill' : 'regular'} />
+          <span className="text-xs mt-1 font-medium">Dashboard</span>
         </Link>
 
         <Link
