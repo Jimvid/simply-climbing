@@ -10,9 +10,7 @@ interface GradeFieldsProps {
     state: { value: Grade }
     handleChange: (value: Grade) => void
   }
-  form: {
-    setFieldValue: (field: string, value: Grade) => void
-  }
+  form: any
   gradeSystem: GradeSystem
 }
 

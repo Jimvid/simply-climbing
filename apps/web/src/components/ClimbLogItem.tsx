@@ -1,20 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { Calendar, CaretDown, CaretUp, Trash } from '@phosphor-icons/react'
-import type { Climb, ClimbType } from '../types/climb'
+import type { Climb } from '../types/climb'
 import { useDeleteClimb } from '@/hooks/api/useClimbs'
 import { Icon } from './Icon'
-
-const getTypeLabel = (type: ClimbType) => {
-  const labels = {
-    slopers: 'Slopers',
-    jugs: 'Jugs',
-    crimps: 'Crimps',
-    pockets: 'Pockets',
-    pinches: 'Pinches',
-    mixed: 'Mixed',
-  }
-  return labels[type]
-}
 
 const getDifficultyIndicator = (grade: string, perceived: string) => {
   if (perceived > grade) {
@@ -72,10 +60,13 @@ export const ClimbLogItem = ({ climb }: ClimbLogItemProps) => {
               <div className="flex items-center gap-1 text-xs text-base-content/60">
                 <Calendar size={14} />
                 <span>
-                  {new Date(Number(climb.createdAt) * 1000).toLocaleDateString('en-US', {
-                    day: 'numeric',
-                    month: 'long',
-                  })}
+                  {new Date(Number(climb.createdAt) * 1000).toLocaleDateString(
+                    'en-US',
+                    {
+                      day: 'numeric',
+                      month: 'long',
+                    },
+                  )}
                 </span>
               </div>
               <button

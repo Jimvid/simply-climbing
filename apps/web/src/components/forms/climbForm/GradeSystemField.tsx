@@ -1,4 +1,4 @@
-import type { Grade, GradeSystem } from '@/types/climb'
+import type { GradeSystem } from '@/types/climb'
 import { gradeSystems } from './gradeSystems'
 
 interface GradeSystemFieldProps {
@@ -7,9 +7,7 @@ interface GradeSystemFieldProps {
     state: { value: GradeSystem }
     handleChange: (value: GradeSystem) => void
   }
-  form: {
-    setFieldValue: (field: string, value: Grade) => void
-  }
+  form: any
 }
 
 export const GradeSystemField = ({ field, form }: GradeSystemFieldProps) => {
